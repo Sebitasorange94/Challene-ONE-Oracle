@@ -1,15 +1,40 @@
 import javax.swing.JOptionPane;
 
 public class ConversorMoneda {
-	double valorConvertir = Double.parseDouble(JOptionPane.showInputDialog("Ingresa la cantidad de Dinero que deseas convertir: "));
-	String conversorMoneda = (JOptionPane.showInputDialog(null,"Selecciona el tipo de conversion a realizar","MonedaConversor", JOptionPane.PLAIN_MESSAGE,null,new Object[] 
-			{"De pesos a Dolares","De pesos a Euros","De pesos a Libras esterlinas","De pesos a Yenes", "De pesos a Won Coreano",
-			"De Dolares a pesos", "De Euros a pesos", "De Libras a Pesos", "De Yenes a Pesos", "De Won coreano a Pesos"},"Selecciona")).toString();
-	
-	double pesoConvertir;
+	String inputValor, conversorMoneda;
+	double valorConvertir, pesoConvertir;
 	
 	public ConversorMoneda(){ 
-	
+		
+		inputValor = JOptionPane.showInputDialog("Ingresa la cantidad de Dinero que deseas convertir: ");
+		if (inputValor== null) {
+			JOptionPane.showMessageDialog(null, "Programa cancelado");
+			return;
+		}
+		
+		
+		try {
+			valorConvertir = Double.parseDouble(inputValor);
+		}catch(NumberFormatException ex){
+			JOptionPane.showMessageDialog(null, "Por favor, ingresa un valor numérico.");
+            return;
+		}
+		
+		Object[] divisas ={"De pesos a Dolares","De pesos a Euros","De pesos a Libras esterlinas","De pesos a Yenes", "De pesos a Won Coreano",
+						"De Dolares a pesos", "De Euros a pesos", "De Libras a Pesos", "De Yenes a Pesos", "De Won coreano a Pesos"};
+		
+		Object select = JOptionPane.showInputDialog(null,
+				"Selecciona el tipo de conversion a realizar",
+				"MonedaConversor",JOptionPane.PLAIN_MESSAGE, null, divisas, divisas[0]);
+		
+		if(select == null) {
+			JOptionPane.showMessageDialog(null, "Programa cancelado");
+			return;
+		}else {
+			
+		conversorMoneda = select.toString();
+		
+		
 		switch(conversorMoneda) {
 			//Dolar
 			case "De pesos a Dolares":
@@ -64,6 +89,6 @@ public class ConversorMoneda {
 				break;
 			
 		}
-	
+		}
 	}
 }
